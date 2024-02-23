@@ -10,12 +10,19 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     public Animator animator;
     private int footLayerIndex;
+    private int baseLayerIndex;
+    private bool isAttacking = false;
     private Coroutine resetLayerWeightCoroutine;
+    private bool attack1Pressed = false;
+    private bool attack2Pressed = false;
+    private bool attack3Pressed = false;
+    private bool attack4Pressed = false;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         footLayerIndex = animator.GetLayerIndex("Foots");
+        baseLayerIndex = animator.GetLayerIndex("Base Layer");
     }
 
     private void Update()
@@ -27,17 +34,27 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float movsX = Input.GetAxis("Horizontal");
-        float movsY = Input.GetAxis("Vertical");
-        Vector3 movement = new Vector3(movsX, 0f, movsY).normalized;
-        if (Input.GetKey(KeyCode.W))
+        if (!isAttacking)
         {
-            rb.velocity = movement * speed * fwdSpeed * Time.deltaTime;
+
+            float movsX = Input.GetAxis("Horizontal");
+            float movsY = Input.GetAxis("Vertical");
+            Vector3 movement = new Vector3(movsX, 0f, movsY).normalized;
+            if (Input.GetKey(KeyCode.W))
+            {
+                rb.velocity = movement * speed * fwdSpeed * Time.deltaTime;
+            }
+            else
+            {
+                rb.velocity = movement * speed * Time.deltaTime;
+            }
         }
-        else 
+
+        else
         {
-            rb.velocity = movement * speed  * Time.deltaTime;
+            rb.velocity = Vector3.zero;
         }
+
     }
 
     private void animationMovement()
@@ -83,36 +100,53 @@ public class PlayerController : MonoBehaviour
 
     private void animationAttack()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !attack1Pressed)
         {
+            attack1Pressed = true;
             TriggerAttack("Attack1");
         }
-
-        if (Input.GetMouseButton(1))
+        else if (!Input.GetMouseButton(0))
         {
+            attack1Pressed = false;
+        }
+
+        if (Input.GetMouseButton(1) && !attack2Pressed)
+        {
+            attack2Pressed = true;
             TriggerAttack("Attack2");
         }
-
-        if (Input.GetKey(KeyCode.R))
+        else if (!Input.GetMouseButton(1))
         {
-            TriggerAttack("Attack3");
+            attack2Pressed = false;
         }
 
-        if (Input.GetKey(KeyCode.F))
+        if (Input.GetKey(KeyCode.R) && !attack3Pressed)
         {
+            attack3Pressed = true;
+            TriggerAttack("Attack3");
+        }
+        else if (!Input.GetKey(KeyCode.R))
+        {
+            attack3Pressed = false;
+        }
+
+        if (Input.GetKey(KeyCode.F) && !attack4Pressed)
+        {
+            attack4Pressed = true;
             TriggerAttack("Attack4");
+        }
+        else if (!Input.GetKey(KeyCode.F))
+        {
+            attack4Pressed = false;
         }
 
     }
 
     private void TriggerAttack(string triggerName)
-    {
+    {   
+        isAttacking = true;
         animator.SetLayerWeight(footLayerIndex, 0f);
         animator.SetTrigger(triggerName);
-
-        if (resetLayerWeightCoroutine != null)
-            StopCoroutine(resetLayerWeightCoroutine);
-
         resetLayerWeightCoroutine = StartCoroutine(ResetLayerWeight());
     }
 
@@ -120,9 +154,10 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForEndOfFrame(); // Esperar al final del frame actual para asegurarse de que la animación se haya iniciado
 
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(footLayerIndex).length); // Esperar hasta que la animación actual termine
-
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(baseLayerIndex).length); // Esperar hasta que la animación actual termine
+        print(animator.GetCurrentAnimatorStateInfo(footLayerIndex).length);
         animator.SetLayerWeight(footLayerIndex, 1f);
+        isAttacking = false;
         resetLayerWeightCoroutine = null;
     }
 }
