@@ -19,7 +19,14 @@ public class HealthAndDamage : MonoBehaviour
             health -= 5f;
             
         }
+
+        if (other.CompareTag("ClawsStrong"))
+        {
+            health -= 15f;
+        }
     }
+
+    
 
 
 
