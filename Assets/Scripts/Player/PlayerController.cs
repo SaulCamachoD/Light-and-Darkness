@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     private bool attack2Pressed = false;
     private bool attack3Pressed = false;
     private bool attack4Pressed = false;
+    public GameObject BladeLeft;
+    public GameObject BladeRight;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -153,11 +155,14 @@ public class PlayerController : MonoBehaviour
     private IEnumerator ResetLayerWeight()
     {
         yield return new WaitForEndOfFrame(); // Esperar al final del frame actual para asegurarse de que la animación se haya iniciado
-
+        BladeLeft.SetActive(true);
+        BladeRight.SetActive(true);
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(baseLayerIndex).length); // Esperar hasta que la animación actual termine
         print(animator.GetCurrentAnimatorStateInfo(footLayerIndex).length);
         animator.SetLayerWeight(footLayerIndex, 1f);
         isAttacking = false;
         resetLayerWeightCoroutine = null;
+        BladeLeft.SetActive(false);
+        BladeRight.SetActive(false);
     }
 }

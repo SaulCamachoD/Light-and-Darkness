@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Floor
   - Claws
+  - Blades
+  - Zombie
   layers:
   - Default
   - TransparentFX

@@ -3,16 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthAndDamage : MonoBehaviour
+
 {
-    public int health = 100;
+    public Animator animator;
+    public float health = 100f;
 
-    void Start()
+    private void Start()
     {
-        
+        animator = GetComponent<Animator>();
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Claws"))
+        {
+            health -= 5f;
+            
+        }
     }
 
-    public void TakeDamege(int damage)
-    {
-        print("has recive damage the:" + damage);
-    }
+
+
+
 }
