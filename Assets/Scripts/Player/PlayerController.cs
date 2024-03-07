@@ -158,11 +158,19 @@ public class PlayerController : MonoBehaviour
         BladeLeft.SetActive(true);
         BladeRight.SetActive(true);
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(baseLayerIndex).length); // Esperar hasta que la animación actual termine
-        print(animator.GetCurrentAnimatorStateInfo(footLayerIndex).length);
         animator.SetLayerWeight(footLayerIndex, 1f);
         isAttacking = false;
         resetLayerWeightCoroutine = null;
         BladeLeft.SetActive(false);
         BladeRight.SetActive(false);
+    }
+
+    public void DescactiveLayer()
+    {
+        animator.SetLayerWeight(footLayerIndex, 0f);
+    }
+    public void ActiveLayer()
+    {
+        animator.SetLayerWeight(footLayerIndex, 1f);
     }
 }
