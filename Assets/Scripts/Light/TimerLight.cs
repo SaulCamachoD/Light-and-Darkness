@@ -24,4 +24,11 @@ public class TimerLight : MonoBehaviour
             print("las luz se acabo");
         }
     }
+
+    public void AddTime()
+    {
+        restTime += 30f;
+        print("tiempo anadido");
+        
+    }
 }
