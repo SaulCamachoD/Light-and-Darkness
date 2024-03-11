@@ -12,12 +12,14 @@ public class Zombie : MonoBehaviour
     protected bool isDeath = false;
     protected Rigidbody rb;
     protected GameObject player;
+    protected CountZombieDeaths countDies;
 
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         player = GameObject.FindWithTag("Player");
+        countDies = GameObject.Find("Dies").GetComponent<CountZombieDeaths>();
     }
 
     protected virtual void Update()
@@ -61,6 +63,7 @@ public class Zombie : MonoBehaviour
     public virtual void Die()
     {
         isDeath = true;
+        
     }
 
     protected virtual void OnTriggerEnter(Collider other)
@@ -83,6 +86,7 @@ public class Zombie : MonoBehaviour
         yield return new WaitForSeconds(3);
 
         Destroy(gameObject);
+        countDies.ZombieDies();
     }
 }
 
