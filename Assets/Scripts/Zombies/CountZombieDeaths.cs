@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CountZombieDeaths : MonoBehaviour
 {
-    [SerializeField] int countDies = 0;
+    [SerializeField]private int countDies = 0;
     private MoreTimeManagement moreTime;
 
     private void Start()
@@ -16,7 +16,7 @@ public class CountZombieDeaths : MonoBehaviour
     {
         countDies++;
         print(countDies);
-        if (countDies == 7)
+        if (countDies == 5)
         {
             moreTime.ActiveAddOn();
         }

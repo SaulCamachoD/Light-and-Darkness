@@ -7,7 +7,7 @@ public class Zombie : MonoBehaviour
     [SerializeField] protected float speed = 5f;
     [SerializeField] protected float attackRange = 1f;
     [SerializeField] protected float hitForce = 2f;
-    [SerializeField] private float health = 120f;
+    [SerializeField] private float health = 60f;
     [SerializeField] protected Animator animator;
     protected bool isDeath = false;
     protected Rigidbody rb;
@@ -70,7 +70,7 @@ public class Zombie : MonoBehaviour
     {
         if (other.CompareTag("Blades"))
         {
-            health -= 5f;
+            health -= 10f;
             if (health <= 0)
             {
                 StartCoroutine(DeathRutine());

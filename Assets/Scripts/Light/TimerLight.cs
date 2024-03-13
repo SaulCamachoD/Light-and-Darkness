@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TimerLight : MonoBehaviour
 {
-    public float inicialTime = 30f;
+    public float inicialTime = 90f;
     public float restTime;
     void Start()
     {

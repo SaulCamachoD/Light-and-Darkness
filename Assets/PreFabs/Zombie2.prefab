@@ -3403,6 +3403,6 @@ MonoBehaviour:
   speed: 5
   attackRange: 1
   hitForce: 2
-  health: 120
+  health: 80
   animator: {fileID: 0}
   ClawsStrong: {fileID: 381421639802869503}
