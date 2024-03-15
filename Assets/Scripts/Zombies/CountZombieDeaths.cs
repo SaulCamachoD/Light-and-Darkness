@@ -4,21 +4,30 @@ using UnityEngine;
 
 public class CountZombieDeaths : MonoBehaviour
 {
-    [SerializeField]private int countDies = 0;
+    public int countDies = 0;
     private MoreTimeManagement moreTime;
+    public HudManagment hud;
 
     private void Start()
     {
         moreTime = GameObject.Find("SpawnerAddOnTime").GetComponent<MoreTimeManagement>();
+        hud = GameObject.Find("HUD").GetComponent<HudManagment>();
     }
 
     public void ZombieDies()
     {
         countDies++;
         print(countDies);
-        if (countDies == 5)
+        if (countDies % 3 == 0)
         {
             moreTime.ActiveAddOn();
+            
+        }
+
+        if(countDies == 12)
+        {
+            hud.WinFinal();
+            
         }
     }
 }

@@ -9,6 +9,12 @@ TagManager:
   - Blades
   - Zombie
   - ClawsStrong
+  - Light
+  - Hud
+  - Dies
+  - Pause
+  - Lose
+  - Win
   layers:
   - Default
   - TransparentFX

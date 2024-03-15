@@ -6,8 +6,10 @@ public class TimerLight : MonoBehaviour
 {
     public float inicialTime = 90f;
     public float restTime;
+    public HudManagment hud;
     void Start()
     {
+        hud = GameObject.Find("HUD").GetComponent<HudManagment>();
         restTime = inicialTime;
     }
 
@@ -21,14 +23,13 @@ public class TimerLight : MonoBehaviour
         }
         else
         {
-            print("las luz se acabo");
+            hud.Finished();
         }
     }
 
     public void AddTime()
     {
         restTime += 30f;
-        print("tiempo anadido");
         
     }
 }
